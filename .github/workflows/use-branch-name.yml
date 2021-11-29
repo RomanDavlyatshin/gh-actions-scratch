@@ -1,0 +1,18 @@
+name: Use branch name
+on:
+  # just for EXAMPLE
+  workflow_dispatch:
+  # just for EXAMPLE
+
+jobs:
+  do-something:
+    name: Do something
+    runs-on: ubuntu-latest
+    steps:
+      - name: Extract branch name
+        id: extract_branch
+        shell: bash
+        run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+      
+      - name: Do interesting stuff
+        run: echo ${{steps.extract_branch.name}}

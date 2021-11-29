@@ -1,0 +1,22 @@
+name: Use inputs
+on:
+  workflow_dispatch:
+    inputs:
+      name:
+        description: 'Person to greet'
+        required: true
+        default: 'Mona the Octocat'
+      home:
+        description: 'location'
+        required: false
+        default: 'The Octoverse'
+
+jobs:
+  do-something:
+    name: Do something
+    runs-on: ubuntu-latest
+    steps:
+      - name: Do interesting stuff
+        run: |
+          echo "Hello ${{ github.event.inputs.name }}!"
+          echo "- in ${{ github.event.inputs.home }}!"
