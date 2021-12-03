@@ -21,6 +21,10 @@ on:
         type: environment
         required: true
         description: set env here
+        options:
+          - "x"
+          - "y"
+          - "z"
 
 jobs:
   greet:
