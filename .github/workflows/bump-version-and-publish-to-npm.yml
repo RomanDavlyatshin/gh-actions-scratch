@@ -1,0 +1,37 @@
+name: Bump version and publish to NPM
+
+on:
+  workflow_dispatch:
+    inputs:
+
+      is-main-release:
+        required: true
+        type: boolean
+        description: Publish with the "latest" tag (NPM)
+        default: false
+
+      tag-from-branch:
+        required: true
+        type: boolan
+        description: 'Create -prerelease suffix from branch name. If "false" publish with "-beta" suffix. Ignored if published with "latest" tag.'
+        default: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '16.x'
+          registry-url: https://registry.npmjs.org/
+      
+      #- run: npm version --
+      #- run: npm publish --tag=${{ github.event.inputs.npm-tag }}
+
+      #- run: npm run test
+      #- run: npm version ${{ github.event.inputs.message }}
+      #- run: npm run build
+      #- run: npm publish
+      #  env:
+      #    NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
