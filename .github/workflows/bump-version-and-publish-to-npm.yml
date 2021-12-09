@@ -26,9 +26,21 @@ jobs:
           node-version: '16.x'
           registry-url: https://registry.npmjs.org/
 
-      - name: Bump version
+      - name: Publish main release (with "latest" tag)
+        if: ${{ github.event.inputs.is-main-release }}
         run: |
-          echo npm version ${{ github.event.inputs.is-main-release && 'patch' || 'prerelease' }} ${{ !github.event.inputs.is-main-release && ('--preid='github.event.inputs.tag-from-branch && 'beta' || $(echo ${GITHUB_REF#refs/heads/})) }}
+          echo npm version patch
+
+      - name: Publish prerelease (with "beta" tag and "-beta" suffix)
+        if: ${{ !github.event.inputs.is-main-release && !github.event.inputs.tag-from-branch }}
+        run: |
+          echo npm version patch --preid=beta
+
+      - name: Publish prerelease with branch suffix (with "beta" tag, "-branch-name" suffix)
+        if: ${{ !github.event.inputs.is-main-release && github.event.inputs.tag-from-branch }}
+        run: |
+          echo npm version patch --preid=$(echo ${GITHUB_REF#refs/heads/}))
+
       #- run: npm publish --tag=${{ github.event.inputs.npm-tag }}
 
       #- run: npm run test
