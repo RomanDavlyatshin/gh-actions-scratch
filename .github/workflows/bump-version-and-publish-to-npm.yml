@@ -12,8 +12,8 @@ on:
 
       tag-from-branch:
         required: true
-        type: boolan
-        description: 'Create -prerelease suffix from branch name. If "false" publish with "-beta" suffix. Ignored if published with "latest" tag.'
+        type: boolean
+        description: '-prerelease suffix from branch name, rather than "-beta". Ignored for "latest" tag'
         default: false
 
 jobs:
