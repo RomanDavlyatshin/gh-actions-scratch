@@ -25,8 +25,10 @@ jobs:
         with:
           node-version: '16.x'
           registry-url: https://registry.npmjs.org/
-      
-      #- run: npm version --
+
+      - name: Bump version
+        run: |
+          echo npm version ${{ github.event.inputs.is-main-release && 'patch' || 'prerelease' }} ${{ !github.event.inputs.is-main-release && (--preid=github.event.inputs.tag-from-branch && 'beta' || $(echo ${GITHUB_REF#refs/heads/})) }}
       #- run: npm publish --tag=${{ github.event.inputs.npm-tag }}
 
       #- run: npm run test
