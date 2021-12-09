@@ -4,7 +4,7 @@
   "version": "0.1.0-83",
   "main": "dist",
   "scripts": {
-    "pre_publish": "echo imaginary pre-publish"
+    "pre_publish": "echo imaginary pre-publish",
     "_publish": "echo imaginary publish"
   },
   "dependencies": {
