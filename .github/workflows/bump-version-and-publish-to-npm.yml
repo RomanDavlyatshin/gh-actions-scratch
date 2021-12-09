@@ -28,8 +28,8 @@ jobs:
 
       - run: echo is main release *${{github.event.inputs.is-main-release}}*
       - run: echo tag from branch *${{github.event.inputs.tag-from-branch}}*
-      - run: echo ${{ !github.event.inputs.is-main-release && !github.event.inputs.tag-from-branch && 'beta' || 'no beta' }}
-      - run: echo ${{ !github.event.inputs.is-main-release && github.event.inputs.tag-from-branch && 'branchname' || 'no branchname' }}
+      - run: echo ${{ (!github.event.inputs.is-main-release && !github.event.inputs.tag-from-branch) && 'beta' || 'no beta' }}
+      - run: echo ${{ (!github.event.inputs.is-main-release && github.event.inputs.tag-from-branch) && 'branchname' || 'no branchname' }}
 
       - name: Publish main release (with "latest" tag)
         if: ${{ github.event.inputs.is-main-release }}
