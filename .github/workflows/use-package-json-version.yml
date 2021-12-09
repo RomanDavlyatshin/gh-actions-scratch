@@ -9,6 +9,7 @@ jobs:
     name: Do something
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
       - name: Get version from package.json
         id: get_version
         shell: bash
