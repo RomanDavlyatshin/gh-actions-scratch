@@ -26,6 +26,9 @@ jobs:
           node-version: '16.x'
           registry-url: https://registry.npmjs.org/
 
+      - run: echo is main release *${{github.event.inputs.is-main-release}}*
+      - run: echo tag from branch *${{github.event.inputs.tag-from-branch}}*
+
       - name: Publish main release (with "latest" tag)
         if: ${{ github.event.inputs.is-main-release }}
         run: |
