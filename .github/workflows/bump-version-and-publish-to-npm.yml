@@ -8,13 +8,13 @@ on:
         required: true
         type: boolean
         description: Publish with the "latest" tag (NPM)
-        default: false
+        default: 'false'
 
       tag-from-branch:
         required: true
         type: boolean
         description: '-prerelease suffix from branch name, rather than "-beta". Ignored for "latest" tag'
-        default: false
+        default: 'false'
 
 jobs:
   build:
