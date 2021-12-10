@@ -26,25 +26,25 @@ jobs:
           node-version: '16.x'
           registry-url: https://registry.npmjs.org/
 
-      - run: echo is main release *${{github.event.inputs.is-main-release == 'true'}}*
-      - run: echo tag from branch *${{github.event.inputs.tag-from-branch == 'true'}}*
-      - run: echo ${{ (github.event.inputs.is-main-release != 'true' && github.event.inputs.tag-from-branch != 'true') && 'beta' || 'no beta' }}
-      - run: echo ${{ (github.event.inputs.is-main-release != 'true' && github.event.inputs.tag-from-branch == 'true' ) && 'branchname' || 'no branchname' }}
+      #- run: echo is main release *${{github.event.inputs.is-main-release == 'true'}}*
+      #- run: echo tag from branch *${{github.event.inputs.tag-from-branch == 'true'}}*
+      #- run: echo ${{ (github.event.inputs.is-main-release != 'true' && github.event.inputs.tag-from-branch != 'true') && 'beta' || 'no beta' }}
+      #- run: echo ${{ (github.event.inputs.is-main-release != 'true' && github.event.inputs.tag-from-branch == 'true' ) && 'branchname' || 'no branchname' }}
 
       - name: Main release, "latest" tag
         if: github.event.inputs.is-main-release == 'true'
         run: |
-          echo npm version patch
+          npm version patch
 
       - name: Prerelease, "beta" tag, "-beta" suffix)
         if: github.event.inputs.is-main-release != 'true' && github.event.inputs.tag-from-branch != 'true'
         run: |
-          echo npm version patch --preid=beta
+          npm version patch --preid=beta
 
       - name: Prerelease, "beta" tag, "-<branch-name>" suffix)
         if: github.event.inputs.is-main-release != 'true' && github.event.inputs.tag-from-branch == 'true'
         run: |
-          echo npm version patch --preid=$(echo ${GITHUB_REF#refs/heads/})
+          npm version patch --preid=$(echo ${GITHUB_REF#refs/heads/})
 
       #- run: npm publish --tag=${{ github.event.inputs.npm-tag }}
 
