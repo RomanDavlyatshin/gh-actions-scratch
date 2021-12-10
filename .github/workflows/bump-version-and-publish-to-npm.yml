@@ -50,7 +50,7 @@ jobs:
         run: |
           if [ $GITHUB_REF = refs/heads/main ]; \
           then echo 'Do not use -<branch-name> to release from "main" branch'; exit 1; \
-          else str=${GITHUB_REF#refs/heads/}; str=${str//'/'/'-'}; echo npm version prerelease --preid=$str; \
+          else str=${GITHUB_REF#refs/heads/}; str=${str//'/'/'-'}; echo --preid=$str; npm version prerelease --preid=$str; \
           fi;
         #  else str=${GITHUB_REF#refs/heads/}; str=${str//'/'/'-'}; npm version prerelease --preid=$str; \
 
