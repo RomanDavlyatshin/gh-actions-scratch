@@ -30,23 +30,24 @@ jobs:
         run: |
           git config --global user.email "drill4j-release-bot@gmail.com"
           git config --global user.name "drill4j-release-bot"
-
       - name: Main release, "latest" tag
         if: github.event.inputs.is-main-release == 'true'
         run: |
           npm version patch
-
       - name: Prerelease, "beta" tag, "-beta" suffix)
         if: github.event.inputs.is-main-release != 'true' && github.event.inputs.tag-from-branch != 'true'
         run: |
           npm version prerelease --preid=beta
-
       - name: Prerelease, "beta" tag, "-<branch-name>" suffix)
         if: github.event.inputs.is-main-release != 'true' && github.event.inputs.tag-from-branch == 'true'
         run: |
           if [ $GITHUB_REF = refs/heads/main ]; \
-          then echo 'Do not use -<branch-name> to release from "main" branch' && exit 1; \
-          npm version prerelease --preid=$(str=${GITHUB_REF#refs/heads/}; echo ${str//'/'/'-'}); fi;
+          then echo 'NOOOO!'; \
+          else echo 'RELEEEEASE!'; \
+          fi;
+        #  if [ $GITHUB_REF = refs/heads/main ]; \
+        #  then echo 'Do not use -<branch-name> to release from "main" branch' && exit 1; \
+        #  npm version prerelease --preid=$(str=${GITHUB_REF#refs/heads/}; echo ${str//'/'/'-'}); fi;
         # else npm version prerelease --preid=$(echo ${GITHUB_REF#refs/heads/}); fi;
 
       - name: Push commit with new tag
