@@ -7,13 +7,13 @@ on:
       is-main-release:
         required: true
         type: boolean
-        description: Publish with the "latest" tag (NPM)
+        description: 'Release with the "latest" tag (NPM)'
         default: 'false'
 
       tag-from-branch:
         required: true
         type: boolean
-        description: '-prerelease suffix from branch name, rather than "-beta". Ignored for "latest" tag'
+        description: 'Prerelease with -<branch-name> suffix'
         default: 'false'
 
 jobs:
@@ -26,15 +26,10 @@ jobs:
           node-version: '16.x'
           registry-url: https://registry.npmjs.org/
 
-      #- run: echo is main release *${{github.event.inputs.is-main-release == 'true'}}*
-      #- run: echo tag from branch *${{github.event.inputs.tag-from-branch == 'true'}}*
-      #- run: echo ${{ (github.event.inputs.is-main-release != 'true' && github.event.inputs.tag-from-branch != 'true') && 'beta' || 'no beta' }}
-      #- run: echo ${{ (github.event.inputs.is-main-release != 'true' && github.event.inputs.tag-from-branch == 'true' ) && 'branchname' || 'no branchname' }}
-
       - name: Configure Git user
         run: |
-          git config --global user.email "foo@bar.fiz"
-          git config --global user.name "Foo Bar"
+          git config --global user.email "drill4j-release-bot@gmail.com"
+          git config --global user.name "drill4j-release-bot"
 
       - name: Main release, "latest" tag
         if: github.event.inputs.is-main-release == 'true'
@@ -51,24 +46,9 @@ jobs:
         run: |
           if [ $GITHUB_REF = refs/heads/main ]; \
           then echo 'Do not use -<branch-name> to release from "main" branch' && exit 1; \
-          else npm version prerelease --preid=$(echo ${GITHUB_REF#refs/heads/}); fi;
-        #refs/heads/ = "main"
-        #  if [ $? -eq 0 ]; then echo 1; else echo 0; fi
-        #  GITHUB_REF#refs/heads/ == 'main'
-        # && echo #${{ ${GITHUB_REF#refs/heads/} == 'main' }}#
-        # && $(echo 'You are trying to publish prerelease with -<branch-name> suffix from the "main" branch' && exit 1) }} \
-        #    npm version prerelease --preid=$(echo ${GITHUB_REF#refs/heads/})
+          npm version prerelease --preid=$(str=${GITHUB_REF#refs/heads/}; echo ${str//'/'/'-'}); fi;
+        # else npm version prerelease --preid=$(echo ${GITHUB_REF#refs/heads/}); fi;
 
-      #- name: Push git tag
-      #  run: |
-      #    git push origin $(echo ${GITHUB_REF#refs/heads/})
-      #    git push "https://${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}" "${{ github.head_ref }}"
-          
-      #- run: npm publish --tag=${{ github.event.inputs.npm-tag }}
-
-      #- run: npm run test
-      #- run: npm version ${{ github.event.inputs.message }}
-      #- run: npm run build
-      #- run: npm publish
-      #  env:
-      #    NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+      - name: Push commit with new tag
+        run: |
+          git push origin $(echo ${GITHUB_REF#refs/heads/})
