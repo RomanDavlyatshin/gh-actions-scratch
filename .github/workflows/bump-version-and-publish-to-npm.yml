@@ -8,7 +8,7 @@ on:
         required: true
         type: boolean
         description: Publish with the "latest" tag (NPM)
-        default: 'false'
+        default: false
 
       tag-from-branch:
         required: true
