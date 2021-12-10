@@ -45,8 +45,12 @@ jobs:
         if: github.event.inputs.is-main-release != 'true' && github.event.inputs.tag-from-branch == 'true'
         run: |
           if [ $GITHUB_REF = refs/heads/main ]; \
-          then echo 'Do not use -<branch-name> to release from "main" branch' && exit 1; \
-          npm version prerelease --preid=$(str=${GITHUB_REF#refs/heads/}; echo ${str//'/'/'-'}); fi;
+          then echo 'NOOOO!'; \
+          else echo 'RELEEEEASE!'; \
+          fi;
+        #  if [ $GITHUB_REF = refs/heads/main ]; \
+        #  then echo 'Do not use -<branch-name> to release from "main" branch' && exit 1; \
+        #  npm version prerelease --preid=$(str=${GITHUB_REF#refs/heads/}; echo ${str//'/'/'-'}); fi;
         # else npm version prerelease --preid=$(echo ${GITHUB_REF#refs/heads/}); fi;
 
       - name: Push commit with new tag
