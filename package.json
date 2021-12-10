@@ -1,7 +1,7 @@
 {
   "name": "some-package",
   "license": "Apache-2.0",
-  "version": "0.1.1-beta.2",
+  "version": "0.1.1-feature-add-button.0",
   "main": "dist",
   "scripts": {
     "pre_publish": "echo imaginary pre-publish",
