@@ -53,7 +53,9 @@ jobs:
 
       - name: Push git tag
         run: |
-          git push "https://${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}" "${{ github.head_ref }}"
+          git remote -v
+      #    git push "https://${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}" "${{ github.head_ref }}"
+          
       #- run: npm publish --tag=${{ github.event.inputs.npm-tag }}
 
       #- run: npm run test
