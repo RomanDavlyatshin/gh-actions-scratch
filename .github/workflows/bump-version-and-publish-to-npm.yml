@@ -49,8 +49,9 @@ jobs:
       - name: Prerelease, "beta" tag, "-<branch-name>" suffix)
         if: github.event.inputs.is-main-release != 'true' && github.event.inputs.tag-from-branch == 'true'
         run: |
-          ${{ $(echo ${GITHUB_REF#refs/heads/}) == 'main' && $(echo 'You are trying to publish prerelease with -<branch-name> suffix from the "main" branch' && exit 1) }} \
-            npm version prerelease --preid=$(echo ${GITHUB_REF#refs/heads/})
+          echo ${{ GITHUB_REF#refs/heads/ }} && echo #${{ GITHUB_REF#refs/heads/ == 'main' }}#
+        # && $(echo 'You are trying to publish prerelease with -<branch-name> suffix from the "main" branch' && exit 1) }} \
+        #    npm version prerelease --preid=$(echo ${GITHUB_REF#refs/heads/})
 
       #- name: Push git tag
       #  run: |
