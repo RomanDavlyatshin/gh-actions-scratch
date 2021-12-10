@@ -31,6 +31,11 @@ jobs:
       #- run: echo ${{ (github.event.inputs.is-main-release != 'true' && github.event.inputs.tag-from-branch != 'true') && 'beta' || 'no beta' }}
       #- run: echo ${{ (github.event.inputs.is-main-release != 'true' && github.event.inputs.tag-from-branch == 'true' ) && 'branchname' || 'no branchname' }}
 
+      - name: Configure git
+        run: |
+          git config --global user.email "foo@bar.fiz"
+          git config --global user.name "Foo Bar"
+
       - name: Main release, "latest" tag
         if: github.event.inputs.is-main-release == 'true'
         run: |
