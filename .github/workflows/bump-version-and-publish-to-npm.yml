@@ -50,7 +50,7 @@ jobs:
         if: github.event.inputs.is-main-release != 'true' && github.event.inputs.tag-from-branch == 'true'
         run: |
           if [ $GITHUB_REF = refs/heads/main ]; then echo 'Do not use -<branch-name> to release from "main" branch' && exit 1; \
-            echo npm version prerelease --preid=$(echo ${GITHUB_REF#refs/heads/})
+          echo npm version prerelease --preid=$(echo ${GITHUB_REF#refs/heads/})
         #refs/heads/ = "main"
         #  if [ $? -eq 0 ]; then echo 1; else echo 0; fi
         #  GITHUB_REF#refs/heads/ == 'main'
