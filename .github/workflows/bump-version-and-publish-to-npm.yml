@@ -8,7 +8,7 @@ on:
         required: true
         type: boolean
         description: Publish with the "latest" tag (NPM)
-        default: false
+        default: 'false'
 
       tag-from-branch:
         required: true
@@ -26,10 +26,10 @@ jobs:
           node-version: '16.x'
           registry-url: https://registry.npmjs.org/
 
-      - run: echo is main release *${{github.event.inputs.is-main-release}}*
-      - run: echo tag from branch *${{github.event.inputs.tag-from-branch}}*
-      - run: echo ${{ (!github.event.inputs.is-main-release && !github.event.inputs.tag-from-branch) && 'beta' || 'no beta' }}
-      - run: echo ${{ (!github.event.inputs.is-main-release && github.event.inputs.tag-from-branch) && 'branchname' || 'no branchname' }}
+      - run: echo is main release *${{github.event.inputs.is-main-release == 'true'}}*
+      - run: echo tag from branch *${{github.event.inputs.tag-from-branch == 'true'}}*
+      - run: echo ${{ (github.event.inputs.is-main-release != 'true' && github.event.inputs.tag-from-branch != 'true') && 'beta' || 'no beta' }}
+      - run: echo ${{ (github.event.inputs.is-main-release != 'true' && github.event.inputs.tag-from-branch == 'true' ) && 'branchname' || 'no branchname' }}
 
       - name: Publish main release (with "latest" tag)
         if: github.event.inputs.is-main-release
