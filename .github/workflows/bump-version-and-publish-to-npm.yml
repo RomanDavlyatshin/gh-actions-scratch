@@ -42,11 +42,11 @@ jobs:
         if: github.event.inputs.is-main-release != 'true' && github.event.inputs.tag-from-branch == 'true'
         run: |
           if [ $GITHUB_REF = refs/heads/main ]; \
-          then echo 'NOOOO!'; \
-          else echo 'RELEEEEASE!'; \
+          then echo 'NOOOO!'; echo 'Do not use -<branch-name> to release from "main" branch'; exit 1; \
+          else echo 'RELEEEEASE!'; str=${GITHUB_REF#refs/heads/}; echo ${str//'/'/'-'}; npm version prerelease --preid=$str; \
           fi;
         #  if [ $GITHUB_REF = refs/heads/main ]; \
-        #  then echo 'Do not use -<branch-name> to release from "main" branch' && exit 1; \
+        #  then \
         #  npm version prerelease --preid=$(str=${GITHUB_REF#refs/heads/}; echo ${str//'/'/'-'}); fi;
         # else npm version prerelease --preid=$(echo ${GITHUB_REF#refs/heads/}); fi;
 
