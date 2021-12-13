@@ -1,0 +1,15 @@
+name: Use github context data
+on:
+  workflow_dispatch:
+
+jobs:
+  do-something:
+    name: Do something
+    runs-on: ubuntu-latest
+    steps:
+      - name: github.event
+        run: |
+          echo "${{ github.event }}"
+      - name: github.repository
+        run: |
+          echo "${{ github.repository }}"
