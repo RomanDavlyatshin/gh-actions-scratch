@@ -9,7 +9,7 @@ jobs:
     steps:
       - name: github.event
         run: |
-          echo "${{ github.event }}"
+          echo "${{ fromJSON(github.event) }}"
       - name: github.repository
         run: |
           echo "${{ github.repository }}"
